@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mobsf-service
+  namespace: defectdojo
 spec:
   replicas: 1
   selector:
@@ -17,11 +18,17 @@ spec:
           image: opensecurity/mobile-security-framework-mobsf:latest
           ports:
             - containerPort: 8000
+          env:
+            - name: DEFECTDOJO_URL
+              value: "http://10.102.74.156:30080"
+            - name: DEFECTDOJO_API_KEY
+              value: "your-api-key"
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: mobsf-service
+  namespace: defectdojo
 spec:
   selector:
     app: mobsf-service

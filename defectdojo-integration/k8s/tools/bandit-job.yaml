@@ -2,13 +2,18 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: bandit-job
+  namespace: defectdojo
 spec:
   template:
     spec:
       containers:
         - name: bandit
-          image: anasbinaqeel/bandit-microservice:1.0
+          image: your-dockerhub-username/bandit-microservice:1.0
           env:
             - name: TARGET
               value: "/path/to/code"
+            - name: DEFECTDOJO_URL
+              value: "http://10.102.74.156:30080"
+            - name: DEFECTDOJO_API_KEY
+              value: "your-api-key"
       restartPolicy: Never

@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nuclei-service
+  namespace: defectdojo
 spec:
   replicas: 1
   selector:
@@ -17,16 +18,8 @@ spec:
           image: anasbinaqeel/nuclei-microservice:1.0
           env:
             - name: TARGET
-              value: "http://example.com" # Or any domain you want to test
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: nuclei-service
-spec:
-  selector:
-    app: nuclei-service
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 80
+              value: "http://example.com"
+            - name: DEFECTDOJO_URL
+              value: "http://10.102.74.156:30080"
+            - name: DEFECTDOJO_API_KEY
+              value: "your-api-key"

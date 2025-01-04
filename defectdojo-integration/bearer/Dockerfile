@@ -1,17 +1,20 @@
 FROM node:18
 
-# 1) Install Python3, make, g++, and python-is-python3 for symlinks
+# Install Python3, pip, make, g++, and symlinks for Python3
 RUN apt-get update && apt-get install -y \
     python3 \
+    python3-pip \
     python-is-python3 \
     make \
     g++ \
     && rm -rf /var/lib/apt/lists/*
 
-# 2) Install Bearer CLI globally
+# Install Bearer CLI globally
 RUN npm install -g @bearer/bearer-cli --unsafe-perm
 
-COPY run_bearer.sh /run_bearer.sh
-RUN chmod +x /run_bearer.sh
+# Install Python dependencies
+RUN pip install requests
 
-CMD ["/run_bearer.sh"]
+# Copy and set permissions for the scan script
+COPY run_bearer.py /run_bearer.py
+CMD ["python3", "/run_bearer.py"]

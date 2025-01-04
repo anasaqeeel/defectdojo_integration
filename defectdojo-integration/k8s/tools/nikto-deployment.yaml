@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nikto-service
+  namespace: defectdojo
 spec:
   replicas: 1
   selector:
@@ -17,12 +18,17 @@ spec:
           image: anasbinaqeel/nikto-microservice:1.0
           env:
             - name: TARGET
-              value: "example.com" # default
+              value: "example.com"
+            - name: DD_API_KEY
+              value: "your-defectdojo-token"
+            - name: DD_URL
+              value: "http://defectdojo-service"
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: nikto-service
+  namespace: defectdojo
 spec:
   selector:
     app: nikto-service
