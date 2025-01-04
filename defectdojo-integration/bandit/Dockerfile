@@ -1,5 +1,4 @@
 FROM python:3.10
-RUN pip install bandit
-COPY run_bandit.sh /run_bandit.sh
-RUN chmod +x /run_bandit.sh
-CMD ["/run_bandit.sh"]
+RUN pip install bandit requests
+COPY run_bandit.py /run_bandit.py
+CMD ["python", "/run_bandit.py"]
