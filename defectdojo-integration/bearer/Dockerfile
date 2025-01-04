@@ -9,12 +9,9 @@ RUN apt-get update && apt-get install -y \
     g++ \
     && rm -rf /var/lib/apt/lists/*
 
-# Install Bearer CLI globally
 RUN npm install -g @bearer/bearer-cli --unsafe-perm
 
-# Install Python dependencies
 RUN pip install requests
 
-# Copy and set permissions for the scan script
 COPY run_bearer.py /run_bearer.py
 CMD ["python3", "/run_bearer.py"]

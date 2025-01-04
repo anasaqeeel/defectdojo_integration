@@ -2,12 +2,10 @@ import os
 import subprocess
 import requests
 
-# Environment variables
 target = os.getenv("TARGET", "/some/code")
 defectdojo_url = os.getenv("DEFECTDOJO_URL", "http://localhost:30080")
 defectdojo_api_key = os.getenv("DEFECTDOJO_API_KEY", "your-api-key")
 
-# Run Bearer Scan
 result_file = "/tmp/bearer_output.json"
 try:
     subprocess.run(["bearer", "scan", target, "--report-file", result_file], check=True)
@@ -23,7 +21,7 @@ try:
         files = {"file": report}
         data = {
             "scan_type": "Bearer Scan",
-            "engagement": 1  # Replace with the actual engagement ID
+            "engagement": 1  # to be Replaced with the actual engagement ID
         }
         response = requests.post(f"{defectdojo_url}/api/v2/import-scan/", headers=headers, files=files, data=data)
         print(f"DefectDojo response: {response.status_code}, {response.text}")

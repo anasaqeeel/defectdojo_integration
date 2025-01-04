@@ -16,7 +16,7 @@ ENGAGEMENT_ID = 1  # Replace with actual engagement ID
 def run_aws_checks():
     print("Running AWS checks...")
 
-    # Create a client for IAM
+    # client for IAM
     client = boto3.client(
         "iam",
         aws_access_key_id=AWS_ACCESS_KEY,
@@ -57,4 +57,4 @@ def upload_to_defectdojo(report_path):
 if __name__ == "__main__":
     report_path = run_aws_checks()
     # Uncomment the next line to enable DefectDojo integration
-    # upload_to_defectdojo(report_path)
+    upload_to_defectdojo(report_path)

@@ -8,7 +8,7 @@ spec:
     spec:
       containers:
         - name: bandit
-          image: your-dockerhub-username/bandit-microservice:1.0
+          image: anasbinaqeel/bandit-microservice:1.0
           env:
             - name: TARGET
               value: "/path/to/code"

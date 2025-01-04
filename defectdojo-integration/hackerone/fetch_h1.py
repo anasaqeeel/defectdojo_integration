@@ -6,7 +6,6 @@ DD_API_KEY = os.getenv("DD_API_KEY", "YOUR_DD_API_KEY")
 DD_URL = os.getenv("DD_URL", "http://defectdojo-service")
 
 def fetch_hackerone_reports():
-    # Example: Fetch HackerOne reports
     headers = {"Authorization": f"Bearer {H1_API_TOKEN}"}
     response = requests.get(f"{DD_URL}/api/v2/reports", headers=headers)
     if response.status_code == 200:

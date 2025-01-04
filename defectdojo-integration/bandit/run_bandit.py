@@ -7,7 +7,6 @@ target = os.getenv("TARGET", "/path/to/code")
 defectdojo_url = os.getenv("DEFECTDOJO_URL", "http://localhost:30080")
 defectdojo_api_key = os.getenv("DEFECTDOJO_API_KEY", "your-api-key")
 
-# Run Bandit
 result_file = "/tmp/bandit_output.xml"
 subprocess.run(["bandit", "-r", target, "-f", "xml", "-o", result_file], check=True)
 

@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: bearer
-          image: your-dockerhub-username/bearer-microservice:1.0
+          image: anasbinaqeel/bearer-microservice:1.0
           env:
             - name: TARGET
               value: "/some/code"

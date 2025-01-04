@@ -8,11 +8,8 @@ RUN yum install -y unzip less python3 curl && \
     rm -rf /tmp/aws* && \
     pip3 install boto3
 
-# Copy Python script
 COPY run_aws.py /run_aws.py
 
-# Set permissions
 RUN chmod +x /run_aws.py
 
-# Define default command
 CMD ["python3", "/run_aws.py"]
