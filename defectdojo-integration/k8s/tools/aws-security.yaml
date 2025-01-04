@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aws-security-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: aws-security-service
+  template:
+    metadata:
+      labels:
+        app: aws-security-service
+    spec:
+      containers:
+        - name: aws-security
+          image: anasbinaqeel/aws-security:1.0
+          env:
+            - name: AWS_ACCESS_KEY_ID
+              value: "<your-aws-access-key>"
+            - name: AWS_SECRET_ACCESS_KEY
+              value: "<your-aws-secret-key>"
+            - name: AWS_DEFAULT_REGION
+              value: "<your-region>"
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: aws-security-job
+spec:
+  template:
+    spec:
+      containers:
+        - name: aws-security
+          image: anasbinaqeel/aws-security:1.0
+          env:
+            - name: AWS_ACCESS_KEY_ID
+              value: "<your-aws-access-key>"
+            - name: AWS_SECRET_ACCESS_KEY
+              value: "<your-aws-secret-key>"
+            - name: AWS_DEFAULT_REGION
+              value: "<your-region>"
+      restartPolicy: Never

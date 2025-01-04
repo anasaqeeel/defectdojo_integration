@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: hackerone-fetch
+spec:
+  schedule: "0 * * * *" # every hour
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: hackerone
+              image: anasbinaqeel/hackerone-fetch:1.0
+              env:
+                - name: H1_API_TOKEN
+                  value: "abc123"
+                - name: DD_API_KEY
+                  value: "YOUR_DEFECTDOJO_TOKEN"
+                - name: DD_URL
+                  value: "http://defectdojo-service"
+          restartPolicy: Never

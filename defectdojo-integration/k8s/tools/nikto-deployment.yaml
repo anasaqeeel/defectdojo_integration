@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nikto-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nikto-service
+  template:
+    metadata:
+      labels:
+        app: nikto-service
+    spec:
+      containers:
+        - name: nikto
+          image: anasbinaqeel/nikto-microservice:1.0
+          env:
+            - name: TARGET
+              value: "example.com" # default
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nikto-service
+spec:
+  selector:
+    app: nikto-service
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80

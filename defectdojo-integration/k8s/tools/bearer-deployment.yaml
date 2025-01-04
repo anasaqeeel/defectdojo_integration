@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bearer-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bearer-service
+  template:
+    metadata:
+      labels:
+        app: bearer-service
+    spec:
+      containers:
+        - name: bearer
+          image: anasbinaqeel/bearer-microservice:1.0
+          env:
+            - name: TARGET
+              value: "/some/code"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bearer-service
+spec:
+  selector:
+    app: bearer-service
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80

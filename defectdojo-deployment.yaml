@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: defectdojo
+  namespace: defectdojo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: defectdojo
+  template:
+    metadata:
+      labels:
+        app: defectdojo
+    spec:
+      containers:
+        - name: defectdojo
+          image: defectdojo/defectdojo-django:latest
+          ports:
+            - containerPort: 8081

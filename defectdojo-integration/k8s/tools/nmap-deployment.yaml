@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nmap-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nmap-service
+  template:
+    metadata:
+      labels:
+        app: nmap-service
+    spec:
+      containers:
+      - name: nmap
+        image: anasbinaqeel/nmap-microservice:1.0
+        env:
+          - name: TARGET
+            value: "scanme.nmap.org"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nmap-service
+spec:
+  selector:
+    app: nmap-service
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80

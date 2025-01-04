@@ -1,0 +1,14 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: bandit-job
+spec:
+  template:
+    spec:
+      containers:
+        - name: bandit
+          image: anasbinaqeel/bandit-microservice:1.0
+          env:
+            - name: TARGET
+              value: "/path/to/code"
+      restartPolicy: Never

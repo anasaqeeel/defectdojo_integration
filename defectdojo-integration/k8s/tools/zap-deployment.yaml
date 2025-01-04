@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zap-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zap-service
+  template:
+    metadata:
+      labels:
+        app: zap-service
+    spec:
+      containers:
+        - name: zap
+          # Using the correct image for OWASP ZAP
+          image: owasp/zap2docker-live
+          command: ["/bin/sh"]
+          args:
+            - "-c"
+            - |
+              zap-baseline.py -t http://example.com -r /zap/wrk/report.html && \
+              echo "=== ZAP REPORT START ===" && \
+              cat /zap/wrk/report.html && \
+              echo "=== ZAP REPORT END ==="
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: zap-service
+spec:
+  selector:
+    app: zap-service
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80

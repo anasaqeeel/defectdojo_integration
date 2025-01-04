@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: defectdojo-service
+  namespace: defectdojo
+spec:
+  type: NodePort
+  selector:
+    app: defectdojo
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8081
+      nodePort: 30080
