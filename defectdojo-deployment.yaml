@@ -1,4 +1,3 @@
-# defectdojo-deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -19,5 +18,33 @@ spec:
           image: defectdojo/defectdojo-django:latest
           ports:
             - containerPort: 8080
+          env:
+            - name: DATABASE_URL
+              value: "postgres://postgres:yourpassword@postgres-service:5432/defectdojo?sslmode=require"
+            - name: DD_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: defectdojo-secret
+                  key: dd-secret-key
+          volumeMounts:
+            - name: ssl-cert
+              mountPath: /certs
+      volumes:
+        - name: ssl-cert
+          secret:
+            secretName: postgres-ssl-cert
 ---
-
+apiVersion: v1
+kind: Service
+metadata:
+  name: defectdojo-service
+  namespace: defectdojo
+spec:
+  type: NodePort
+  selector:
+    app: defectdojo
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+      nodePort: 30080

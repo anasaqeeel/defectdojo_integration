@@ -57,4 +57,4 @@ def upload_to_defectdojo(report_path):
 if __name__ == "__main__":
     report_path = run_aws_checks()
     # Uncomment the next line to enable DefectDojo integration
-    upload_to_defectdojo(report_path)
+    # upload_to_defectdojo(report_path)
